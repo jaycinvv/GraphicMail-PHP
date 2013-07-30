@@ -91,6 +91,32 @@ class graphicMail
     		return 2;
     	}
     }
+        /*
+Function will unsubscribe the email address to the passed Mail List
+*/
+    public function unsubMailList($emailAddress, $mailList)
+    {
+     $graphicMailGet = "{$this->APIURL}&Function=post_unsubscribe&Email={$emailAddress}&MailinglistID={$mailList}&SID=6";
+     $graphicMailReturned = $this->sendRequestGraphicMail($graphicMailGet);
+     $graphicMailExploded = explode('|', $graphicMailReturned);
+
+     // Check to see if successful
+     if ($graphicMailExploded[0] == 0)
+     {
+     // Error
+     return 0;
+     }
+     elseif($graphicMailExploded[0] == 1)
+     {
+     // removed Sucessfully
+     return 1;
+     }
+     else
+     {
+     // Email Already unSubscribed
+     return 2;
+     }
+    }	
 
     /*
 		Get a list of all datasets
